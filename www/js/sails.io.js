@@ -355,6 +355,7 @@ var parts=["source","protocol","authority","userInfo","user","password","host","
      */
     SailsSocket.prototype._connect = function (){
       var self = this;
+		io.sails.url="http://localhost:1337";
 
       // Apply `io.sails` config as defaults
       // (now that at least one tick has elapsed)
