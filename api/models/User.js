@@ -6,9 +6,22 @@
 */
 
 module.exports = {
-
+	schema: true,
   attributes: {
-
+  		id:{
+		type:'int',
+		unique:true,
+		primaryKey:true,
+		autoIncrement: true
+	},
+	username:{
+		type:'string',
+		unique:true
+	},
+	password:{
+		type:'string',
+		unique:true
+	}
   }
 };
 

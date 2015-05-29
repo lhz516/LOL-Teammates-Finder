@@ -17,5 +17,33 @@
  * under the License.
  */
 
+$().ready(function(){
+    
+});
 
+$('#signup').on('click', function(){
+        io.socket.post("/user", { 
+        username: $('#username').val(),
+        password: $('#password').val()
+
+    },function(){
+        $.mobile.changePage( "#login-page", { transition: "slideup" });
+    });
+
+});
+$('#login').on('click', function(){
+        io.socket.post("/user/login", { 
+        username: $('#login-username').val(),
+        password: $('#login-password').val()
+
+    },function(data){
+        console.log(data);
+        //$.mobile.changePage( "#main", { transition: "slideup" });
+    });
+});
+io.socket.on("session-create",function(data){
+        console.log('session created');
+        console.log(session.User.password);
+        //$.mobile.changePage( "#main", { transition: "slideup" });
+    });
 
