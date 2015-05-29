@@ -16,8 +16,7 @@ module.exports = {
 			if(err) return next(err);
 			if(!user) return next(err);
 			if(user.password == req.param('password')){
-				sails.sockets.emit(sails.sockets.id(req.socket), 'session-create',{msg:'Hi'});
-				req.session.User = user;
+				sails.sockets.emit(sails.sockets.id(req.socket), 'session-create',{msg:'Hi',user:user});
 			}
 		});
 

@@ -43,7 +43,7 @@ $('#login').on('click', function(){
 });
 io.socket.on("session-create",function(data){
         console.log('session created');
-        console.log(session.User.password);
-        //$.mobile.changePage( "#main", { transition: "slideup" });
+        console.log(data.user);
+        $.mobile.changePage( "#main", { transition: "slideup" });
     });
 
