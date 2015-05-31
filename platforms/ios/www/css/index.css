@@ -1,0 +1,25 @@
+table{
+    margin:0 auto;
+}
+table tr{
+    display: block;
+    width:100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+table tr td{
+    display: inline-block;
+    width:40%;
+}
+h3{
+    margin: 40px auto 20px auto;
+}
+/*.table-row{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width:100%;
+}*/
+.btn{
+    margin-top: 20px;
+}

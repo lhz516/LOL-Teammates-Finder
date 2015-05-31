@@ -17,33 +17,60 @@
  * under the License.
  */
 
-$().ready(function(){
-    
-});
 
-$('#signup').on('click', function(){
-        io.socket.post("/user", { 
+
+//     $('#signup').on('click', function(){
+//         io.socket.post("/user", { 
+//         username: $('#username').val(),
+//         password: $('#password').val()
+
+//     },function(){
+//         $.mobile.changePage( "#login-page", { transition: "slideup" });
+//     });
+
+// });
+// $('#login').on('click', function(){
+//         io.socket.post("/user/login", { 
+//         username: $('#login-username').val(),
+//         password: $('#login-password').val()
+
+//     },function(data){
+//         console.log(data);
+//         //$.mobile.changePage( "#main", { transition: "slideup" });
+//     });
+// });
+// io.socket.on("session-create",function(data){
+//         console.log('session created');
+//         console.log(data.user);
+//         $.mobile.changePage( "#main", { transition: "slideup" });
+//     });
+
+$('#signup').on('click', function() {
+    $.post('http://192.168.0.16:1337/user', {
         username: $('#username').val(),
         password: $('#password').val()
-
+        
     },function(){
         $.mobile.changePage( "#login-page", { transition: "slideup" });
     });
-
 });
-$('#login').on('click', function(){
-        io.socket.post("/user/login", { 
+
+
+
+$('#login').on('click', function() {
+    $.post('http://192.168.0.16:1337/user/login', {
         username: $('#login-username').val(),
         password: $('#login-password').val()
 
-    },function(data){
-        console.log(data);
-        //$.mobile.changePage( "#main", { transition: "slideup" });
+    },function(user){
+       localStorage.setItem("session",JSON.stringify(user));
+       console.log(localStorage.getItem("session"));
+       console.log(user.username);
+       $('#welcome').append('Welcome, '+ user.username);
+       $.post('http://192.168.0.16:1337/user/getUsers', function(users){
+        console.log(users.length);
     });
+       $.mobile.changePage( "#edit-info", { transition: "slideup" });
+   });
 });
-io.socket.on("session-create",function(data){
-        console.log('session created');
-        console.log(data.user);
-        $.mobile.changePage( "#main", { transition: "slideup" });
-    });
 
