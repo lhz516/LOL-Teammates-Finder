@@ -6,9 +6,8 @@
 */
 
 module.exports = {
-	schema: true,
   attributes: {
-  		id:{
+  	id:{
 		type:'int',
 		unique:true,
 		primaryKey:true,
@@ -21,6 +20,22 @@ module.exports = {
 	password:{
 		type:'string',
 		unique:true
+	},
+	s_name:{
+		type:'string',
+		unique:true,
+	},
+	rank:{
+		type:'string',
+	},
+	play_time:{
+		type:'string',
+	},
+	skype:{
+		type:'string',
+	},
+	language:{
+		type:'string',
 	}
   }
 };
