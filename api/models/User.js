@@ -6,6 +6,7 @@
 */
 
 module.exports = {
+	schema: true,
   attributes: {
   	id:{
 		type:'int',
@@ -15,27 +16,41 @@ module.exports = {
 	},
 	username:{
 		type:'string',
-		unique:true
+		unique:true,
+		defaultsTo: ''
 	},
 	password:{
 		type:'string',
-		unique:true
+		defaultsTo: ''
 	},
 	s_name:{
 		type:'string',
-		unique:true,
+		defaultsTo: ''
 	},
 	rank:{
 		type:'string',
+		defaultsTo: 'Unranked'
 	},
 	play_time:{
 		type:'string',
+		defaultsTo: 'Anytime'
+
 	},
 	skype:{
 		type:'string',
+		defaultsTo: 'No'
 	},
 	language:{
 		type:'string',
+		defaultsTo: ''
+	},
+	toJSON: function(){
+		var obj = this.toObject();
+		delete obj.password;
+		delete obj.createdAt;
+		delete obj.updatedAt;
+	//	delete obj._csrf;
+		return obj;
 	}
   }
 };

@@ -6,10 +6,10 @@
  */
 
 module.exports = {
-	signup: function (req, res, next){
+	// signup: function (req, res, next){
 		
-		return next();
-	},
+	// 	return next();
+	// },
 	login: function (req, res, next){
 
 		var login_name = req.param('username');
@@ -24,7 +24,21 @@ module.exports = {
 		});
 
 	},
+	update: function (req, res, next){
+		console.log(req.param('id'));
+		User.update({id: req.param('id')},{
+			s_name: req.param('s_name'),
+			rank: req.param('rank'),
+			play_time: req.param('play_time'),
+			ifskype: req.param('ifskype'),
+			language: req.param('language')
+		}).exec(function (err,updated){
+			console.log("updated");
+			return res.send(updated);
+		}) ;
+	},
 	getUsers: function (req, res, next){
+
 		User.find({}).exec(function findCB(err, users){
   			return res.send(users);
 		});

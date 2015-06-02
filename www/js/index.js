@@ -18,6 +18,7 @@
  */
 
 
+//  Method of WebSocket
 
 //     $('#signup').on('click', function(){
 //         io.socket.post("/user", { 
@@ -45,32 +46,74 @@
 //         $.mobile.changePage( "#main", { transition: "slideup" });
 //     });
 
-$('#signup').on('click', function() {
-    $.post('http://192.168.0.16:1337/user', {
+var remote_server = 'http://192.168.0.16:1337';
+
+$('#signup').on('touchstart click', function() {
+    $.post(remote_server + '/user', {
         username: $('#username').val(),
-        password: $('#password').val()
-        
+        password: $('#password').val(),     
     },function(){
         $.mobile.changePage( "#login-page", { transition: "slideup" });
     });
 });
 
-
-
-$('#login').on('click', function() {
-    $.post('http://192.168.0.16:1337/user/login', {
+$('#login').on('touchstart click', function() {
+    $.post(remote_server + '/user/login', {
         username: $('#login-username').val(),
         password: $('#login-password').val()
+
 
     },function(user){
        localStorage.setItem("session",JSON.stringify(user));
        console.log(localStorage.getItem("session"));
        console.log(user.username);
-       $('#welcome').append('Welcome, '+ user.username);
-       $.post('http://192.168.0.16:1337/user/getUsers', function(users){
-        console.log(users.length);
+       $('#welcome').html('Welcome, '+ user.username);
     });
        $.mobile.changePage( "#edit-info", { transition: "slideup" });
+});
+
+$('#ifskype').on('change',function(){
+  if($('#ifskype').val()=='Yes')
+    $('#language').prop('disabled', false);
+  else
+    $('#language').prop('disabled', true);
+});
+
+function toMainPage(){
+  $.get(remote_server +'/user/getUsers', function(users){
+        console.log(JSON.stringify(users));
+        $('#userlist').empty();
+        users.forEach(function(user) {
+          $('#userlist').append("<div class='col-xs-12 each_user'><ul class='list-inline'>"+
+            "<li><strong>Summoner's Name: </strong>"+user.s_name+"</li>"+
+            "<li><strong>Rank: </strong>"+user.rank+"</li>"+
+            "<li><strong>Prefer play time: </strong>"+user.play_time+"</li>"+
+            "<li><strong>Skype: </strong>"+user.ifskype+"</li>"+
+            "<li><strong>Language: </strong>"+user.language+"</li></ul></div>");      
+        });
+        
+    });
+       
+       $.mobile.changePage( "#main-page", { transition: "slideup" });
+}
+
+$('#update').on('touchstart click', function() {
+    $.post(remote_server + '/user/update', {
+        id: JSON.parse(localStorage.getItem("session")).id,
+        s_name: $('#s_name').val(),
+        rank: $('#rank').val(),
+        play_time: $('#play_time').val(),
+        ifskype: $('#ifskype').val(),
+        language: $('#language').val(),
+    },function(){
+       toMainPage();
    });
 });
 
+$('#edit_my_profile').on('touchstart click', function() {
+  $.mobile.changePage( "#edit-info", { transition: "slideup" });
+});
+
+$('#cancel').on('touchstart click', function() {
+  toMainPage();
+});

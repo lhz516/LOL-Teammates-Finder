@@ -23,3 +23,11 @@ h3{
 .btn{
     margin-top: 20px;
 }
+.each_user{
+    height: auto;
+    border:black 1px solid;
+    margin-bottom: 5px;
+}
+#userlist{
+    margin-top: 20px;
+}
