@@ -46,7 +46,7 @@
 //         $.mobile.changePage( "#main", { transition: "slideup" });
 //     });
 
-var remote_server = 'http://134.154.69.109:1337';
+var remote_server = 'http://localhost:1337';
 
 $('#signup').on('touchstart click', function() {
     $.post(remote_server + '/user', {
@@ -124,4 +124,26 @@ $('#cancel').on('touchstart click', function() {
 $('#logout').on('touchstart click', function() {
   localStorage.clear();
   $.mobile.changePage("#sign_up");
+});
+
+$('#signup_form').validate({
+  rules:{
+    username: {
+      required: true,
+      minlength: 4
+    },
+    password:{ 
+      required: true
+    },
+    password_confirm:{ 
+      required: true,
+      equalTo: "#password"
+    }
+  },
+  messages:{
+    username: {
+      required: "Require username",
+      minlength: $.validator.format("At least {0} characters required!")
+    }
+  }
 });

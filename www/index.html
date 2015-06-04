@@ -42,15 +42,17 @@
     <h4 class="text-center">Create your Account</h4>
     </div>
     </div>
+        <form id="signup_form">
        <div class="row">
     <div class="col-xs-12">
-    <table class="">
+
+    <table >
     <tr class="table-row">
     <td>
     User Name
     </td>
     <td>
-    <input id="username" type="text" >
+    <input id="username" name="username" type="text" >
     </td>
     </tr>
     <tr>
@@ -58,7 +60,7 @@
     Password
     </td>
     <td>
-    <input id="password" type="password" >
+    <input id="password" name="password" type="password" >
     </td>
     </tr>
 
@@ -67,10 +69,11 @@
     Confirm Password
     </td>
     <td>
-    <input type="password" >
+    <input type="password" name="password_confirm">
     </td>
     </tr>
     </table>
+    
     </div>
     </div>
        <div class="row">
@@ -82,7 +85,7 @@
     </div>
     </div>
     </div>
-
+</form>
     <div data-role="page" id="login-page" class="container">
     <div class="row">
     <div class="col-xs-12">
@@ -162,6 +165,7 @@
     </div>
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.custom.js"></script>
+        <script type="text/javascript" src="js/jquery-validate.js"></script>
         <script type="text/javascript" src="js/cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
