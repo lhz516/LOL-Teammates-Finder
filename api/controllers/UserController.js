@@ -11,11 +11,12 @@ module.exports = {
 	// 	return next();
 	// },
 	login: function (req, res, next){
+		console.log("login ing");
 
 		var login_name = req.param('username');
 		User.findOne({username: login_name}).exec(function findOneCB(err, user){
 			if(err) return next(err);
-			if(!user) return next(err);
+			if(!user) return res.send('no user');
 			if(user.password == req.param('password')){
 				console.log("success");
 				return res.send(user);

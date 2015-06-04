@@ -46,7 +46,7 @@
 //         $.mobile.changePage( "#main", { transition: "slideup" });
 //     });
 
-var remote_server = 'http://192.168.0.16:1337';
+var remote_server = 'http://134.154.69.109:1337';
 
 $('#signup').on('touchstart click', function() {
     $.post(remote_server + '/user', {
@@ -67,9 +67,13 @@ $('#login').on('touchstart click', function() {
        localStorage.setItem("session",JSON.stringify(user));
        console.log(localStorage.getItem("session"));
        console.log(user.username);
+       if(user=="no user"){}
+        else{
        $('#welcome').html('Welcome, '+ user.username);
-    });
        $.mobile.changePage( "#edit-info", { transition: "slideup" });
+     }
+    });
+       
 });
 
 $('#ifskype').on('change',function(){
@@ -80,8 +84,7 @@ $('#ifskype').on('change',function(){
 });
 
 function toMainPage(){
-  $.get(remote_server +'/user/getUsers', function(users){
-        console.log(JSON.stringify(users));
+  $.getJSON(remote_server +'/user/getUsers', function(users){
         $('#userlist').empty();
         users.forEach(function(user) {
           $('#userlist').append("<div class='col-xs-12 each_user'><ul class='list-inline'>"+
@@ -104,7 +107,7 @@ $('#update').on('touchstart click', function() {
         rank: $('#rank').val(),
         play_time: $('#play_time').val(),
         ifskype: $('#ifskype').val(),
-        language: $('#language').val(),
+        language: $('#language').val()
     },function(){
        toMainPage();
    });
@@ -116,4 +119,9 @@ $('#edit_my_profile').on('touchstart click', function() {
 
 $('#cancel').on('touchstart click', function() {
   toMainPage();
+});
+
+$('#logout').on('touchstart click', function() {
+  localStorage.clear();
+  $.mobile.changePage("#sign_up");
 });

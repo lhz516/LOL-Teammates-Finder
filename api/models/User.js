@@ -36,7 +36,7 @@ module.exports = {
 		defaultsTo: 'Anytime'
 
 	},
-	skype:{
+	ifskype:{
 		type:'string',
 		defaultsTo: 'No'
 	},
