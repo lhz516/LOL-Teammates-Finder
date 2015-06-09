@@ -164,11 +164,23 @@
     <div data-role="page" id="main-page" class="container">
     <h3>Users List</h3>
     <button id="edit_my_profile" class="btn btn-default">Edit My Profile</button>
+    <button id="myMsg" class="btn btn-default">My Msg</button>
     <button id="logout" class="btn btn-default">Log out</button>
     <div class="row" id="userlist">
     <button id="test1">4432</button>
     </div>
-
+    </div>
+    <!-- USER MESSAGE -->
+    <div data-role="page" id="user-message" class="container">
+    <h3>Msg to: <span id="msgTo"></span></h3>
+    <button class="back btn btn-default">Back</button>
+    <input id="msg" type="text" />
+    <button class="btn btn-info" id="submitMsg">Submit</button>
+    </div>
+    <!-- MY MSG -->
+    <div data-role="page" id="see-msg" class="container">
+    <button class="back btn btn-default">Back</button>
+    <div id="msgList"></div>
     </div>
         <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile.custom.js"></script>
