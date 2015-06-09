@@ -6,15 +6,16 @@ body{
 table{
     margin:0 auto;
 }
-table tr{
+tr{
     display: block;
     width:100%;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-table tr td{
+td{
     display: inline-block;
     width:40%;
+    vertical-align: top;
 }
 h3{
     margin: 40px auto 20px auto;

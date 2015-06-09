@@ -22,6 +22,8 @@ module.exports = {
 				return res.send(user);
 				//sails.sockets.emit(sails.sockets.id(req.socket), 'session-create',{msg:'Hi',user:user});
 			}
+			else
+				return res.send("fail");
 		});
 
 	},

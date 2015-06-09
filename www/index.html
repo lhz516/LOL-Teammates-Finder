@@ -33,6 +33,52 @@
     </head>
     <body>
        
+
+<!-- LOGIN -->
+    <div data-role="page" id="login-page" class="container">
+    <div class="row">
+    <div class="col-xs-12">
+    <h3 class="text-center">LOL teammates finder</h3>
+    </div>
+    <div class="col-xs-12">
+    <h4 class="text-center">Login your Account</h4>
+    </div>
+    </div>
+       <div class="row">
+    <div class="col-xs-12">
+    <table class="">
+    <tr class="table-row">
+    <td>
+    User Name
+    </td>
+    <td>
+    <input id="login-username" type="text">
+    </td>
+    </tr>
+    <tr>
+    <td>
+    Password
+    </td>
+    <td>
+    <input id="login-password" type="password">
+    </td>
+    </tr>
+    
+    
+    </table>
+    </div>
+    </div>
+    <p id="login_err" class="text-center"></p>
+       <div class="row">
+    <div class="col-xs-12">
+    <div class="text-center"><input type="submit" id="login" value="Login" class="btn btn-info">
+    <a><button class="btn btn-danger" id="signup-link" >New Account</button></a>
+    
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- SIGN UP -->
         <div data-role="page" id="sign_up" class="container">
     <div class="row">
     <div class="col-xs-12">
@@ -83,52 +129,10 @@
     <div class="text-center"><a data-transition="slideup" href="#login-page" class="btn btn-default">Already have an account</a></div>
     </div>
     </div>
-    </div>
-    </div>
+        </div>
 </form>
-    <div data-role="page" id="login-page" class="container">
-    <div class="row">
-    <div class="col-xs-12">
-    <h3 class="text-center">LOL teammates finder</h3>
     </div>
-    <div class="col-xs-12">
-    <h4 class="text-center">Login your Account</h4>
-    </div>
-    </div>
-       <div class="row">
-    <div class="col-xs-12">
-    <table class="">
-    <tr class="table-row">
-    <td>
-    User Name
-    </td>
-    <td>
-    <input id="login-username" type="text">
-    </td>
-    </tr>
-    <tr>
-    <td>
-    Password
-    </td>
-    <td>
-    <input id="login-password" type="password">
-    </td>
-    </tr>
-    
-    
-    </table>
-    </div>
-    </div>
-  
-       <div class="row">
-    <div class="col-xs-12">
-    <div class="text-center"><input type="submit" id="login" value="Login" class="btn btn-info">
-    
-    </div>
-    </div>
-    </div>
-    </div>
-
+    <!-- EDIT INFO -->
     <div data-role="page" id="edit-info" class="container">
     <h1 class="text-center" id="welcome"></h1>
     <table>
@@ -155,11 +159,13 @@
     <input type="submit" id="update" value="Update" class="btn btn-info">
     </div>
     </div>
+    <!-- USER LIST -->
     <div data-role="page" id="main-page" class="container">
     <h3>Users List</h3>
     <button id="edit_my_profile" class="btn btn-default">Edit My Profile</button>
     <button id="logout" class="btn btn-default">Log out</button>
     <div class="row" id="userlist">
+    <button id="test1">4432</button>
     </div>
 
     </div>
