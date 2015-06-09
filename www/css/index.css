@@ -1,8 +1,21 @@
-body{
-    color:#2D3144;
-    background-color:rgb(202, 219, 216);
+@font-face {
+  font-family: 'Patua One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Patua One'), local('PatuaOne-Regular'), url(fonts/yAXhog6uK3bd3OwBILv_SFtXRa8TVwTICgirnJhmVJw.woff2) format('woff2'), url(http://fonts.gstatic.com/s/patuaone/v6/yAXhog6uK3bd3OwBILv_SD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 
+body{
+    background-image: url('../img/bg.jpg');
+    color:white;
+        text-shadow: 1px 1px black;
+    font-family: 'Patua One', cursive;
+}
+#login-page img{
+    max-width: 100%;
+    display: block;
+    margin:60px auto 0 auto;
+}
 table{
     margin:0 auto;
 }
@@ -26,8 +39,18 @@ h3{
     margin-bottom: 10px;
     width:100%;
 }*/
+#welcome{
+    margin-top: 40px;
+}
+input[type="text"],input[type="password"]{
+    color:black;
+
+}
 .btn{
     margin-top: 20px;
+}
+.btn-default{
+    text-shadow:none;
 }
 .each_user{
     height: auto;

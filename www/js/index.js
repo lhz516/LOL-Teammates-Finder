@@ -46,11 +46,10 @@
 //         $.mobile.changePage( "#main", { transition: "slideup" });
 //     });
 
-var remote_server = 'http://localhost:1337';
+var remote_server = 'http://192.168.0.16:1337';
 
-$().ready(function(){
+$(document).ready(function(){
   var user = JSON.parse(localStorage.getItem("session"));
-  console.log(user);
   if(user==null){
     $.mobile.changePage( "#login-page", { transition: "slideup" });
   }else{
@@ -59,24 +58,16 @@ $().ready(function(){
   }
 });
 
-$('#signup-link').on('touchstart click', function(){
-   $.mobile.changePage( "#sign_up", { transition: "slideup" });
-});
-
-$('#login').on('touchstart click', function() {
+$('#login').on('tap click', function() {
     $.post(remote_server + '/user/login', {
         username: $('#login-username').val(),
         password: $('#login-password').val()
     },function(user){
        localStorage.setItem("session",JSON.stringify(user));
-       console.log(localStorage.getItem("session"));
-       console.log(user.username);
-       if(user=="no user"){
-        $('#login_err').html("No such user!")
-       }
-       else if(user=="fail"){
-        $('#login_err').html("Password not match!")
-       }
+       if(user=="no user")
+          $('#login_err').html("No such user!");
+       else if(user=="fail")
+          $('#login_err').html("Password not match!");
         else if(user.s_name ==""){
        $('#welcome').html('Welcome, '+ user.username);
        $.mobile.changePage( "#edit-info", { transition: "slideup" });
@@ -84,9 +75,22 @@ $('#login').on('touchstart click', function() {
       $('#welcome').html('Welcome, '+ user.username);
       getUserList();
      $.mobile.changePage( "#main-page", { transition: "slideup" });
-   }
-    });
-       
+    }
+  });
+});
+
+$('#update').on('tap click', function() {
+    $.post(remote_server + '/user/update', {
+        id: JSON.parse(localStorage.getItem("session")).id,
+        s_name: $('#s_name').val(),
+        rank: $('#rank').val(),
+        play_time: $('#play_time').val(),
+        ifskype: $('#ifskype').val(),
+        language: $('#language').val()
+    },function(){
+       getUserList();
+       $.mobile.changePage( "#main-page", { transition: "slideup" });
+   });
 });
 
 $('#ifskype').on('change',function(){
@@ -94,6 +98,10 @@ $('#ifskype').on('change',function(){
     $('#language').prop('disabled', false);
   else
     $('#language').prop('disabled', true);
+});
+
+$('#signup-link').on('tap click', function(){
+   $.mobile.changePage( "#sign_up", { transition: "slideup" });
 });
 
 function getUserList(){
@@ -115,35 +123,25 @@ function getUserList(){
        
 }
 
-$('#update').on('touchstart click', function() {
-    $.post(remote_server + '/user/update', {
-        id: JSON.parse(localStorage.getItem("session")).id,
-        s_name: $('#s_name').val(),
-        rank: $('#rank').val(),
-        play_time: $('#play_time').val(),
-        ifskype: $('#ifskype').val(),
-        language: $('#language').val()
-    },function(){
-       getUserList();
-       $.mobile.changePage( "#main-page", { transition: "slideup" });
-   });
-});
-
-$('#edit_my_profile').on('touchstart click', function() {
+$('#edit_my_profile').on('tap click', function() {
   $.mobile.changePage( "#edit-info", { transition: "slideup" });
 });
 
-$('#cancel').on('touchstart click', function() {
+$('#already_have_account').on('tap click', function() {
+  $.mobile.changePage( "#login-page", { transition: "slideup" });
+});
+
+$('#cancel').on('tap click', function() {
   getUserList();
   $.mobile.changePage( "#main-page", { transition: "slideup" });
 });
 
-$('#logout').on('touchstart click', function() {
+$('#logout').on('tap click', function() {
   localStorage.clear();
   $.mobile.changePage("#login-page");
 });
 
-$('#userlist').on('touchstart click', '.each_user',function() {
+$('#userlist').on('tap click', '.each_user',function() {
   console.log(this.id);
 });
 
@@ -174,7 +172,7 @@ $('#signup_form').validate({
     }
   },
   submitHandler: function (){
-    $('#signup').on('touchstart click', function() {
+    $('#signup').on('tap click', function() {
     $.post(remote_server + '/user', {
         username: $('#username').val(),
         password: $('#password').val(),     
