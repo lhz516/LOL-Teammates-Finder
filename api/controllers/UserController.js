@@ -45,6 +45,11 @@ module.exports = {
 		User.find({}).exec(function findCB(err, users){
   			return res.send(users);
 		});
+	},
+	findone: function (req, res, next){
+		User.findOneById(req.param('id')).exec(function (err,user){
+			return res.send(user);
+		});
 	}
 };
 

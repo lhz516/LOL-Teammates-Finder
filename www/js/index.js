@@ -1,23 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-
 //  Method of WebSocket
 
 //     $('#signup').on('click', function(){
@@ -46,8 +26,10 @@
 //         $.mobile.changePage( "#main", { transition: "slideup" });
 //     });
 
-var remote_server = 'http://192.168.0.16:1337';
+var remote_server = 'http://134.154.70.131:1337';
 
+
+//if you already login last time, you don't need to do it again
 $(document).ready(function(){
   var user = JSON.parse(localStorage.getItem("session"));
   if(user==null){
@@ -58,7 +40,8 @@ $(document).ready(function(){
   }
 });
 
-$('#login').on('tap click', function() {
+//login account (on tap means on touchend)
+$('#login').on('tap', function() {
     $.post(remote_server + '/user/login', {
         username: $('#login-username').val(),
         password: $('#login-password').val()
@@ -79,7 +62,8 @@ $('#login').on('tap click', function() {
   });
 });
 
-$('#update').on('tap click', function() {
+//edit user information page
+$('#update').on('tap', function(){
     $.post(remote_server + '/user/update', {
         id: JSON.parse(localStorage.getItem("session")).id,
         s_name: $('#s_name').val(),
@@ -100,51 +84,86 @@ $('#ifskype').on('change',function(){
     $('#language').prop('disabled', true);
 });
 
-$('#signup-link').on('tap click', function(){
+$('#signup-link').on('tap', function(){
    $.mobile.changePage( "#sign_up", { transition: "slideup" });
 });
 
+//get and show users list
 function getUserList(){
   $.getJSON(remote_server +'/user/getUsers', function(users){
         $('#userlist').empty();
         users.forEach(function(user) {
+          if(user.s_name != ""){  
+          //if the user didn't update summoner's name, this user will not on the list
           $('#userlist').append("<div id='" + user.id + 
-            "' class='col-xs-12 each_user'><ul class='list-inline'>"+
-            "<li><strong>Summoner's Name: </strong>"+user.s_name+"</li>"+
+            "' class='each_user col-xs-12'><ul class='list-unstyled each_user_text'>"+
+            "<li id='s_name'><strong>Summoner's Name: </strong>"+user.s_name+"</li>"+
             "<li><strong>Rank: </strong>"+user.rank+"</li>"+
             "<li><strong>Prefer play time: </strong>"+user.play_time+"</li>"+
-            "<li><strong>Skype: </strong>"+user.ifskype+"</li>"+
-            "<li><strong>Language: </strong>"+user.language+"</li></ul></div>");      
+            "<li><strong>Skype or not: </strong>"+user.ifskype+"</li>"+
+            "<li><strong>Language Speaking: </strong>"+user.language+"</li></ul></div>");   
+            }   
         });
-        $('#userlist').append("<button id='test12'>123</button>");
-        
     });
-       
-       
 }
 
-$('#edit_my_profile').on('tap click', function() {
+$('#edit_my_profile').on('tap', function() {
   $.mobile.changePage( "#edit-info", { transition: "slideup" });
 });
 
-$('#already_have_account').on('tap click', function() {
+$('#already_have_account').on('tap', function() {
   $.mobile.changePage( "#login-page", { transition: "slideup" });
 });
 
-$('#cancel').on('tap click', function() {
+$('#cancel').on('tap', function() {
   getUserList();
   $.mobile.changePage( "#main-page", { transition: "slideup" });
 });
 
-$('#logout').on('tap click', function() {
+$('#logout').on('tap', function() {
   localStorage.clear();
   $.mobile.changePage("#login-page");
 });
 
-$('#userlist').on('tap click', '.each_user',function() {
-  console.log(this.id);
+$('#userlist').on('tap', '.each_user',function() {
+  msgId = this.id;
+  $.post(remote_server + '/user/findone', {
+        id: this.id
+    },function(user){
+      $('#msgTo').html(user.s_name);
+  } );
+  $.mobile.changePage("#user-message",{});
 });
 
+$('#submitMsg').on('tap', function() {
+  var user = JSON.parse(localStorage.getItem("session"));
+    $.post(remote_server + '/message', {
+        from: user.id,
+        to: msgId,
+        content: $('#msg').val()
+    },function(msg){
+      $.mobile.changePage("#main-page",{});
+  });
+});
+
+$('#myMsg').on('tap', function() {
+  console.log('dw');
+  var user = JSON.parse(localStorage.getItem("session"));
+    $.post(remote_server + '/message/getMsg', {
+        id: user.id
+    },function(msgs){
+      console.log(JSON.stringify(msgs));
+      $('#msgList').html(JSON.stringify(msgs));
+      $.mobile.changePage("#see-msg",{});
+  });
+});
+
+$('.back').on('tap',function() {
+  $.mobile.changePage("#main-page",{});
+
+});
+
+//sign up form validation
 $('#signup_form').validate({
   rules:{
     username: {
@@ -171,8 +190,9 @@ $('#signup_form').validate({
       required: "Required"
     }
   },
+  //submit the form via ajax
   submitHandler: function (){
-    $('#signup').on('tap click', function() {
+    $('#signup').on('tap', function() {
     $.post(remote_server + '/user', {
         username: $('#username').val(),
         password: $('#password').val(),     

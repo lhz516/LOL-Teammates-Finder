@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	getMsg: function (req, res, next){
+		Message.find({to:req.param('id')}).exec(function(err,msgs){
+			return res.send(msgs);
+		});
+	}
 };
 
